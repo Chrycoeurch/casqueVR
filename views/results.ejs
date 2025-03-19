@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vos recommandations de casques VR</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="result-container">
+        <h2 class="results-title">Voici les casques VR recommandés pour vous</h2>
+        <div class="recommendations-grid" id="all-recommendations"></div>
+        <a href="/" class="restart-btn">Recommencer le questionnaire</a>
+    </div>
+
+    <script>
+        // Récupérer les résultats depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const headsets = JSON.parse(decodeURIComponent(urlParams.get('results')));
+        
+        const allRecommendationsContainer = document.getElementById('all-recommendations');
+        
+        headsets.forEach(headset => {
+            const card = document.createElement('div');
+            card.className = 'recommendation-card';
+
+            card.innerHTML = `
+                <img src="${headset.image}" alt="${headset.name}" class="logo">
+                <h3>${headset.name}</h3>
+                <p class="description">${headset.description}</p>
+                <div class="points-forts">
+                    <h4>Points forts :</h4>
+                    <ul>
+                        ${headset.pointsForts.map(point => `<li>${point}</li>`).join('')}
+                    </ul>
+                </div>
+                <p class="price">À partir de ${headset.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</p>
+                <a href="${headset.link}" target="_blank" class="view-offer-btn">En savoir plus</a>
+            `;
+            
+            allRecommendationsContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>

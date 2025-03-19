@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quel casque VR est fait pour vous ?</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="main-content">
+        <div class="quiz-layout">
+            <div class="quiz-content">
+                <div class="sticky-header">
+                    <div class="progress-container">
+                        <h1 class="quiz-title">Quel casque VR est fait pour vous ?</h1>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-icon"></div>
+                            </div>
+                        </div>
+                        <div class="progress-text">0% complété</div>
+                    </div>
+                </div>
+
+                <div id="questions-container">
+                    <% questions.forEach((question, index) => { %>
+                        <div class="question-card" data-multiple="<%= question.multiple ? 'true' : 'false' %>">
+                            <h2><%= question.question %></h2>
+                            <% if (question.multiple) { %>
+                                <p class="question-hint">Sélection multiple possible</p>
+                            <% } %>
+                            <div class="options">
+                                <% if (question.type === 'range') { %>
+                                    <div class="range-container">
+                                        <div class="range-value"></div>
+                                        <input type="range" 
+                                               min="<%= question.min %>" 
+                                               max="<%= question.max %>" 
+                                               step="<%= question.step %>"
+                                               class="range-input"
+                                               data-unit="<%= question.unit %>">
+                                    </div>
+                                <% } else { %>
+                                    <% question.options.forEach(option => { %>
+                                        <button class="option-btn"><%= option %></button>
+                                    <% }) %>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }) %>
+                    <div id="error-message" class="error-message" style="display: none;">
+                        Veuillez répondre à toutes les questions avant de continuer
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-sidebar">
+                <div class="sidebar-content">
+                    <h2>Trouvez le casque VR idéal en quelques clics!</h2>
+                    <p>Notre comparateur intelligent analyse vos besoins et préférences pour vous recommander les montres connectées les mieux adaptées à votre style de vie.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Recommandations personnalisées basées sur vos réponses</div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Comparaison précise des fonctionnalités</div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Sélection des meilleurs rapports qualité-prix</div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Conseils d'experts pour choisir le casque VR adapté à votre besoin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
